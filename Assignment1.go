@@ -19,6 +19,41 @@ type Staff struct {
 	Worker
 }
 
+func main() {
+	var staff []Staff
+
+	scanner := bufio.NewScanner(os.Stdin)
+	for {
+		fmt.Printf("\n")
+		fmt.Println(strings.Repeat("-", 20))
+		fmt.Println("\tMENU")
+		fmt.Println(strings.Repeat("-", 20))
+		fmt.Println("1. Input Data Staff")
+		fmt.Println("2. Lihat Daftar Staff")
+		fmt.Println("3. EXIT")
+		fmt.Printf("Masukan pilihan: ")
+
+		scanner.Scan()
+		userInput, _ := strconv.ParseInt(scanner.Text(), 10, 64)
+		if userInput == 3 {
+			fmt.Println("----------------------------")
+			fmt.Println("------- EXIT PROGRAM -------")
+			fmt.Println("----------------------------")
+			break
+		}
+		switch userInput {
+		case 1:
+			InputWorker(&staff)
+		case 2:
+			fmt.Println("-------------------------------------------------")
+			fmt.Println("------- Menampilkan Data (Durasi 3 detik) -------")
+			fmt.Println("-------------------------------------------------")
+			go tampilStaff(staff, 3)
+		}
+	}
+
+}
+
 func InputWorker(staff *[]Staff) {
 
 	var id int
@@ -62,38 +97,4 @@ func tampilStaff(staff []Staff, timeInSecs int64) {
 	}
 }
 
-func main() {
-	var staff []Staff
 
-	scanner := bufio.NewScanner(os.Stdin)
-	for {
-		fmt.Printf("\n")
-		fmt.Println(strings.Repeat("-", 20))
-		fmt.Println("\tMENU")
-		fmt.Println(strings.Repeat("-", 20))
-		fmt.Println("1. New Transaction")
-		fmt.Println("2. Transaction Report")
-		fmt.Println("3. List Product")
-		fmt.Println("4. Exit")
-		fmt.Printf("Masukan pilihan: ")
-
-		scanner.Scan()
-		userInput, _ := strconv.ParseInt(scanner.Text(), 10, 64)
-		if userInput == 4 {
-			fmt.Println("----------------------------")
-			fmt.Println("------- EXIT PROGRAM -------")
-			fmt.Println("----------------------------")
-			break
-		}
-		switch userInput {
-		case 1:
-			InputWorker(&staff)
-		case 2:
-			fmt.Println("-------------------------------------------------")
-			fmt.Println("------- Menampilkan Data (Durasi 3 detik) -------")
-			fmt.Println("-------------------------------------------------")
-			go tampilStaff(staff, 3)
-		}
-	}
-
-}
